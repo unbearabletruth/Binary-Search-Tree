@@ -68,6 +68,18 @@ class Tree {
         }
     }
 
+    find(value, root){
+        if (root === null || value === root.data){
+            return root;
+        }
+        else if (value < root.data){
+            return this.find(value, root.left);
+        }
+        else if (value > root.data){
+            return this.find(value, root.right);
+        }
+    }
+
     printTree(node, prefix = '', isLeft = true){
         if (node === null) {
            return;
@@ -87,6 +99,7 @@ const root = tree.buildTree([1,5,6,9,20], 0, 4);
 tree.insert(7, root);
 tree.insert(2, root);
 tree.insert(25, root);
+console.log(tree.find(29, root))
 tree.printTree(root);
 tree.delete(25, root);
 tree.printTree(root);
@@ -98,3 +111,4 @@ tree.delete(9, root);
 tree.printTree(root);
 tree.delete(6, root);
 tree.printTree(root);
+console.log(tree.find(2, root))
