@@ -80,6 +80,36 @@ class Tree {
         }
     }
 
+    inOrderTraversal(root){
+        //left, root, right
+        if (root === null){
+            return
+        }
+        this.inOrderTraversal(root.left);
+        console.log(root.data);
+        this.inOrderTraversal(root.right);
+    }
+
+    preOrderTraversal(root){
+        //root, left, right
+        if (root === null){
+            return
+        }
+        console.log(root.data);
+        this.preOrderTraversal(root.left);
+        this.preOrderTraversal(root.right);
+    }
+
+    postOrderTraversal(root){
+        //left, right, root
+        if (root === null){
+            return
+        }
+        this.preOrderTraversal(root.left);
+        this.preOrderTraversal(root.right);
+        console.log(root.data);
+    }
+
     printTree(node, prefix = '', isLeft = true){
         if (node === null) {
            return;
@@ -99,6 +129,9 @@ const root = tree.buildTree([1,5,6,9,20], 0, 4);
 tree.insert(7, root);
 tree.insert(2, root);
 tree.insert(25, root);
+//tree.inOrderTraversal(root)
+//tree.preOrderTraversal(root)
+tree.postOrderTraversal(root)
 console.log(tree.find(29, root))
 tree.printTree(root);
 tree.delete(25, root);
