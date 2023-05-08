@@ -37,18 +37,34 @@ class Tree {
     }
 
     delete(value, root){
-        console.log(root)
         if (root.data === value){
-            if (root.left === null && root.right === null){
-                root = null;
+            if (root.left === null){
+                return root.right;
+            }
+            else if (root.right === null){
+                return root.left;
+            }
+            else{
+                root.data = this.minRightValue(root.right);
+                root.right = this.delete(root.data, root.right);
                 return root;
             }
         }
         if (value < root.data){
-            this.delete(value, root.left);
+            root.left = this.delete(value, root.left);
         }
         else if (value > root.data){
             root.right = this.delete(value, root.right);
+        }
+        return root;
+    }
+
+    minRightValue(root){
+        if (root.left === null){
+            return root.data;
+        }
+        else if (root.left){
+            return this.minRightValue(root.left);
         }
     }
 
@@ -72,5 +88,13 @@ tree.insert(7, root);
 tree.insert(2, root);
 tree.insert(25, root);
 tree.printTree(root);
-//tree.delete(25, root);
+tree.delete(25, root);
+tree.printTree(root);
+tree.delete(1, root);
+tree.printTree(root);
+tree.delete(5, root);
+tree.printTree(root);
+tree.delete(9, root);
+tree.printTree(root);
+tree.delete(6, root);
 tree.printTree(root);
