@@ -80,6 +80,24 @@ class Tree {
         }
     }
 
+    levelOrderTraversal(root){
+        if (root === null){
+            return
+        }
+        let queue = [];
+        queue.push(root);
+        while (queue.length !== 0){
+            console.log(queue[0]);
+            if (queue[0].left !== null){
+                queue.push(queue[0].left)
+            }
+            if (queue[0].right !== null){
+                queue.push(queue[0].right)
+            }
+            queue.shift();
+        }
+    }
+
     inOrderTraversal(root){
         //left, root, right
         if (root === null){
@@ -131,7 +149,8 @@ tree.insert(2, root);
 tree.insert(25, root);
 //tree.inOrderTraversal(root)
 //tree.preOrderTraversal(root)
-tree.postOrderTraversal(root)
+//tree.postOrderTraversal(root)
+tree.levelOrderTraversal(root)
 console.log(tree.find(29, root))
 tree.printTree(root);
 tree.delete(25, root);
