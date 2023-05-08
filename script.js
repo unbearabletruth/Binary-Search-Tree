@@ -8,7 +8,6 @@ class Node {
 
 class Tree {
     constructor(){
-        //this.array = array;
         this.root = null;
     }
 
@@ -21,6 +20,23 @@ class Tree {
         root.left = this.buildTree(array, start, mid - 1);
         root.right = this.buildTree(array, mid + 1, end);
         return root;
+    }
+
+    insert(value, root){
+        if (root.left === null && value < root.data){
+            root.left = new Node(value);
+            return 
+        }
+        if (root.right === null && value > root.data){
+            root.right = new Node(value);
+            return
+        }
+        if (value < root.data){
+            this.insert(value, root.left);
+        }
+        else if (value > root.data){
+            this.insert(value, root.right);
+        } 
     }
 
     printTree(node, prefix = '', isLeft = true){
@@ -38,5 +54,8 @@ class Tree {
 }
 
 const tree = new Tree();
-const root = tree.buildTree([1,2,3,4,5], 0, 4);
+const root = tree.buildTree([1,5,6,9,20], 0, 4);
+tree.insert(7, root);
+tree.insert(2, root);
+tree.insert(25, root);
 tree.printTree(root);
