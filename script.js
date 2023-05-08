@@ -23,20 +23,33 @@ class Tree {
     }
 
     insert(value, root){
-        if (root.left === null && value < root.data){
-            root.left = new Node(value);
-            return 
-        }
-        if (root.right === null && value > root.data){
-            root.right = new Node(value);
-            return
+        if (root === null){
+            root = new Node(value);
+            return root;
         }
         if (value < root.data){
-            this.insert(value, root.left);
+            root.left = this.insert(value, root.left);
         }
         else if (value > root.data){
-            this.insert(value, root.right);
-        } 
+            root.right = this.insert(value, root.right);
+        }
+        return root; 
+    }
+
+    delete(value, root){
+        console.log(root)
+        if (root.data === value){
+            if (root.left === null && root.right === null){
+                root = null;
+                return root;
+            }
+        }
+        if (value < root.data){
+            this.delete(value, root.left);
+        }
+        else if (value > root.data){
+            root.right = this.delete(value, root.right);
+        }
     }
 
     printTree(node, prefix = '', isLeft = true){
@@ -58,4 +71,6 @@ const root = tree.buildTree([1,5,6,9,20], 0, 4);
 tree.insert(7, root);
 tree.insert(2, root);
 tree.insert(25, root);
+tree.printTree(root);
+//tree.delete(25, root);
 tree.printTree(root);
