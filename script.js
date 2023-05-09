@@ -85,9 +85,10 @@ class Tree {
             return
         }
         let queue = [];
+        let array = [];
         queue.push(root);
         while (queue.length !== 0){
-            console.log(queue[0]);
+            array.push(queue[0].data);
             if (queue[0].left !== null){
                 queue.push(queue[0].left)
             }
@@ -96,36 +97,59 @@ class Tree {
             }
             queue.shift();
         }
+        return array;
     }
 
     inOrderTraversal(root){
-        //left, root, right
-        if (root === null){
-            return
+        let array = [];
+        function inOrder(root){
+            if (root === null){
+                return
+            }
+            inOrder(root.left);
+            array.push(root.data);
+            inOrder(root.right);
         }
-        this.inOrderTraversal(root.left);
-        console.log(root.data);
-        this.inOrderTraversal(root.right);
+        inOrder(root);
+        return array;
     }
 
     preOrderTraversal(root){
-        //root, left, right
-        if (root === null){
-            return
+        let array = [];
+        function preOrder(root){
+            if (root === null){
+                return
+            }
+            array.push(root.data);
+            preOrder(root.left);
+            preOrder(root.right);
         }
-        console.log(root.data);
-        this.preOrderTraversal(root.left);
-        this.preOrderTraversal(root.right);
+        preOrder(root);
+        return array;
     }
 
     postOrderTraversal(root){
-        //left, right, root
-        if (root === null){
-            return
+        let array = [];
+        function postOrder(root){
+            if (root === null){
+                return
+            }
+            postOrder(root.left);
+            postOrder(root.right);
+            array.push(root.data);
         }
-        this.preOrderTraversal(root.left);
-        this.preOrderTraversal(root.right);
-        console.log(root.data);
+        postOrder(root);
+        return array;
+    }
+
+    height(root){
+        if (root === null){
+            return 1
+        }
+        let counter = 0;
+        if(root.left !== null){
+            counter += this.height(root.left)
+        }   
     }
 
     printTree(node, prefix = '', isLeft = true){
@@ -147,10 +171,10 @@ const root = tree.buildTree([1,5,6,9,20], 0, 4);
 tree.insert(7, root);
 tree.insert(2, root);
 tree.insert(25, root);
-//tree.inOrderTraversal(root)
-//tree.preOrderTraversal(root)
-//tree.postOrderTraversal(root)
-tree.levelOrderTraversal(root)
+console.log("InOrder:", tree.inOrderTraversal(root));
+console.log("PreOrder:", tree.preOrderTraversal(root));
+console.log("PostOrder:", tree.postOrderTraversal(root));
+console.log("LevelOrder:", tree.levelOrderTraversal(root));
 console.log(tree.find(29, root))
 tree.printTree(root);
 tree.delete(25, root);
