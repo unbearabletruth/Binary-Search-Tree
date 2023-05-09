@@ -19,6 +19,7 @@ class Tree {
         let root = new Node(array[mid]);
         root.left = this.buildTree(array, start, mid - 1);
         root.right = this.buildTree(array, mid + 1, end);
+        console.log(root)
         return root;
     }
 
@@ -144,7 +145,7 @@ class Tree {
 
     height(root){
         if(root === null){
-            return 0;
+            return -1;
         }
         return Math.max(this.height(root.left), this.height(root.right)) + 1;
     }
@@ -200,6 +201,11 @@ class Tree {
         return true;
     }
 
+    rebalance(root){
+        let inOrderArray = this.inOrderTraversal(root);
+        return this.buildTree(inOrderArray, 0, inOrderArray.length - 1);
+    }
+
     printTree(node, prefix = '', isLeft = true){
         if (node === null) {
            return;
@@ -215,15 +221,15 @@ class Tree {
 }
 
 const tree = new Tree();
-const root = tree.buildTree([1,4,6,9,20], 0, 4);
-//tree.insert(7, root);
+let root = tree.buildTree([1,4,6,9,20], 0, 4);
+tree.insert(7, root);
 tree.insert(5, root)
 tree.printTree(root);
-//console.log(tree.height(root));
+console.log(tree.height(root));
 console.log(tree.isBalanced(root));
-//console.log(tree.nodeHeight(root, 4))
-//console.log(tree.nodeDepth(root, 4))
-/*tree.insert(2, root);
+console.log(tree.nodeHeight(root, 4))
+console.log(tree.nodeDepth(root, 4))
+tree.insert(2, root);
 tree.insert(25, root);
 tree.insert(3, root);
 console.log("InOrder:", tree.inOrderTraversal(root));
@@ -242,4 +248,6 @@ tree.delete(9, root);
 tree.printTree(root);
 tree.delete(6, root);
 tree.printTree(root);
-console.log(tree.find(2, root))*/
+console.log(tree.find(2, root))
+root = tree.rebalance(root);
+tree.printTree(root);
