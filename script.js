@@ -142,14 +142,22 @@ class Tree {
         return array;
     }
 
-    height(root){
-        if (root === null){
-            return 1
+    height(root, value){
+        let height;
+        function findHeight(root, value){
+            if (root === null){
+                return -1;
+            }
+            let leftHeight = findHeight(root.left, value);
+            let rightHeight = findHeight(root.right, value);
+            let taller = Math.max(leftHeight, rightHeight) + 1;
+            if (root.data === value){
+                height = taller;
+            }
+            return taller;
         }
-        let counter = 0;
-        if(root.left !== null){
-            counter += this.height(root.left)
-        }   
+        findHeight(root, value)
+        return height;
     }
 
     printTree(node, prefix = '', isLeft = true){
@@ -169,13 +177,16 @@ class Tree {
 const tree = new Tree();
 const root = tree.buildTree([1,5,6,9,20], 0, 4);
 tree.insert(7, root);
+tree.printTree(root);
+console.log(tree.height(root, 7))
 tree.insert(2, root);
 tree.insert(25, root);
+tree.insert(3, root);
 console.log("InOrder:", tree.inOrderTraversal(root));
 console.log("PreOrder:", tree.preOrderTraversal(root));
 console.log("PostOrder:", tree.postOrderTraversal(root));
 console.log("LevelOrder:", tree.levelOrderTraversal(root));
-console.log(tree.find(29, root))
+console.log(tree.find(9, root))
 tree.printTree(root);
 tree.delete(25, root);
 tree.printTree(root);
