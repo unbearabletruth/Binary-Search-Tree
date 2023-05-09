@@ -19,7 +19,6 @@ class Tree {
         let root = new Node(array[mid]);
         root.left = this.buildTree(array, start, mid - 1);
         root.right = this.buildTree(array, mid + 1, end);
-        console.log(root)
         return root;
     }
 
@@ -38,6 +37,8 @@ class Tree {
     }
 
     delete(value, root){
+        if (root === null)
+            return root;
         if (root.data === value){
             if (root.left === null){
                 return root.right;
@@ -222,32 +223,20 @@ class Tree {
 
 const tree = new Tree();
 let root = tree.buildTree([1,4,6,9,20], 0, 4);
-tree.insert(7, root);
-tree.insert(5, root)
 tree.printTree(root);
-console.log(tree.height(root));
-console.log(tree.isBalanced(root));
-console.log(tree.nodeHeight(root, 4))
-console.log(tree.nodeDepth(root, 4))
-tree.insert(2, root);
-tree.insert(25, root);
-tree.insert(3, root);
+console.log("Is tree balanced?", tree.isBalanced(root));
 console.log("InOrder:", tree.inOrderTraversal(root));
 console.log("PreOrder:", tree.preOrderTraversal(root));
 console.log("PostOrder:", tree.postOrderTraversal(root));
 console.log("LevelOrder:", tree.levelOrderTraversal(root));
-console.log(tree.find(9, root))
+tree.insert(22, root);
+tree.insert(25, root);
 tree.printTree(root);
-tree.delete(25, root);
-tree.printTree(root);
-tree.delete(1, root);
-tree.printTree(root);
-tree.delete(5, root);
-tree.printTree(root);
-tree.delete(9, root);
-tree.printTree(root);
-tree.delete(6, root);
-tree.printTree(root);
-console.log(tree.find(2, root))
+console.log("Is tree balanced?", tree.isBalanced(root));
 root = tree.rebalance(root);
 tree.printTree(root);
+console.log("Is tree balanced?", tree.isBalanced(root));
+console.log("InOrder:", tree.inOrderTraversal(root));
+console.log("PreOrder:", tree.preOrderTraversal(root));
+console.log("PostOrder:", tree.postOrderTraversal(root));
+console.log("LevelOrder:", tree.levelOrderTraversal(root));
