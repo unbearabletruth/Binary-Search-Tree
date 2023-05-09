@@ -142,7 +142,7 @@ class Tree {
         return array;
     }
 
-    height(root, value){
+    nodeHeight(root, value){
         let height;
         function findHeight(root, value){
             if (root === null){
@@ -158,6 +158,23 @@ class Tree {
         }
         findHeight(root, value)
         return height;
+    }
+
+    nodeDepth(root, value){
+        if (root === null){
+            return -1;
+        }
+        let dist = -1;
+        if (root.data === value){
+            return dist + 1;
+        }
+        if ((dist = this.nodeDepth(root.left, value)) >= 0){
+            return dist + 1;
+        }
+        if ((dist = this.nodeDepth(root.right, value)) >= 0){
+            return dist + 1;
+        }
+        return dist;
     }
 
     printTree(node, prefix = '', isLeft = true){
@@ -178,8 +195,9 @@ const tree = new Tree();
 const root = tree.buildTree([1,5,6,9,20], 0, 4);
 tree.insert(7, root);
 tree.printTree(root);
-console.log(tree.height(root, 7))
-tree.insert(2, root);
+//console.log(tree.nodeHeight(root, 5))
+console.log(tree.nodeDepth(root, 5))
+/*tree.insert(2, root);
 tree.insert(25, root);
 tree.insert(3, root);
 console.log("InOrder:", tree.inOrderTraversal(root));
@@ -198,4 +216,4 @@ tree.delete(9, root);
 tree.printTree(root);
 tree.delete(6, root);
 tree.printTree(root);
-console.log(tree.find(2, root))
+console.log(tree.find(2, root))*/
