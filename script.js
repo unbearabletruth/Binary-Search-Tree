@@ -142,15 +142,20 @@ class Tree {
         return array;
     }
 
+    height(root){
+        if(root === null){
+            return 0;
+        }
+        return Math.max(this.height(root.left), this.height(root.right)) + 1;
+    }
+
     nodeHeight(root, value){
         let height;
         function findHeight(root, value){
             if (root === null){
                 return -1;
             }
-            let leftHeight = findHeight(root.left, value);
-            let rightHeight = findHeight(root.right, value);
-            let taller = Math.max(leftHeight, rightHeight) + 1;
+            let taller = Math.max(findHeight(root.left, value), findHeight(root.right, value)) + 1;
             if (root.data === value){
                 height = taller;
             }
@@ -177,6 +182,24 @@ class Tree {
         return dist;
     }
 
+    isBalanced(root){
+        if (root === null){
+            return;
+        }
+        let leftHeight = this.height(root.left);
+        let rightHeight = this.height(root.right);
+        if (leftHeight - rightHeight > 1 || rightHeight - leftHeight > 1){
+            return false;
+        }
+        if (this.isBalanced(root.left) === false){
+            return false;
+        }
+        if (this.isBalanced(root.right) === false){
+            return false;
+        }
+        return true;
+    }
+
     printTree(node, prefix = '', isLeft = true){
         if (node === null) {
            return;
@@ -192,11 +215,14 @@ class Tree {
 }
 
 const tree = new Tree();
-const root = tree.buildTree([1,5,6,9,20], 0, 4);
-tree.insert(7, root);
+const root = tree.buildTree([1,4,6,9,20], 0, 4);
+//tree.insert(7, root);
+tree.insert(5, root)
 tree.printTree(root);
-//console.log(tree.nodeHeight(root, 5))
-console.log(tree.nodeDepth(root, 5))
+//console.log(tree.height(root));
+console.log(tree.isBalanced(root));
+//console.log(tree.nodeHeight(root, 4))
+//console.log(tree.nodeDepth(root, 4))
 /*tree.insert(2, root);
 tree.insert(25, root);
 tree.insert(3, root);
