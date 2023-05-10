@@ -48,7 +48,7 @@ class Tree {
                 return root.left;
             }
             else{
-                root.data = this.minRightValue(root.right);
+                root.data = this.minValue(root.right);
                 root.right = this.delete(root.data, root.right);
                 return root;
             }
@@ -62,12 +62,12 @@ class Tree {
         return root;
     }
 
-    minRightValue(root = this.root){
+    minValue(root = this.root){
         if (root.left === null){
             return root.data;
         }
         else if (root.left){
-            return this.minRightValue(root.left);
+            return this.minValue(root.left);
         }
     }
 
