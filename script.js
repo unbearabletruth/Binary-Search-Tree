@@ -152,13 +152,15 @@ class Tree {
         return Math.max(this.height(root.left), this.height(root.right)) + 1;
     }
 
-    nodeHeight(root = this.root, value){
+    nodeHeight(value, root = this.root){
         let height;
         function findHeight(root, value){
             if (root === null){
                 return -1;
             }
-            let taller = Math.max(findHeight(root.left, value), findHeight(root.right, value)) + 1;
+            let leftHeight = findHeight(root.left, value);
+            let rightHeight = findHeight(root.right, value);
+            let taller = Math.max(leftHeight, rightHeight) + 1;
             if (root.data === value){
                 height = taller;
             }
@@ -168,7 +170,7 @@ class Tree {
         return height;
     }
 
-    nodeDepth(root = this.root, value){
+    nodeDepth(value, root = this.root){
         if (root === null){
             return -1;
         }
@@ -176,10 +178,10 @@ class Tree {
         if (root.data === value){
             return dist + 1;
         }
-        if ((dist = this.nodeDepth(root.left, value)) >= 0){
+        if ((dist = this.nodeDepth(value, root.left)) >= 0){
             return dist + 1;
         }
-        if ((dist = this.nodeDepth(root.right, value)) >= 0){
+        if ((dist = this.nodeDepth(value, root.right)) >= 0){
             return dist + 1;
         }
         return dist;
